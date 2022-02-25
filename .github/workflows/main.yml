@@ -1,0 +1,27 @@
+name: PR Copybara
+# Controls when the workflow will run
+on:
+  pull_request_target:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  push-public-PR-to-private:
+      runs-on: ubuntu-latest
+    
+      steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: olivr/copybara-action@a0bb6a37362014a57421a6c8dec43fa1908dda06
+        with:
+          ssh_key: ${{ secrets.SSH_KEY_PRIV }}
+          access_token: ${{ secrets.GH_TOKEN }}
+          custom_config: "copybara/pull.request.sky"
+          workflow: "pr"
+      
+#         ssh_key: ${{ secrets.PUB_SSH }}
+#         custom_config: copybara/CHANGE_REQUEST/copy.bara.sky
+#         workflow: "pr"
