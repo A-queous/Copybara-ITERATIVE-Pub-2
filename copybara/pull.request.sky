@@ -18,6 +18,9 @@ core.workflow(
 
     origin_files = glob([
         "**",
+    ], exclude = [
+        "copybara/*.sky",
+        ".github/workflows/*.yml",
     ]),
 
     destination_files = glob([
